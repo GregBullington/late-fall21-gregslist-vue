@@ -1,44 +1,43 @@
 <template>
-  <div class="car-details container-fluid">
-    <div class="row mt-5">
-      <div class="col text-center">
-        <img :src="car.imgUrl" alt="" />
-      </div>
-      <div class="row mt-3 justify-content-center">
-        <div class="col-md-8">
-          <div class="bg-white rounded elevation-1 p-3">
+  <div class="row justify-content-center car-details container-fluid">
+    <div class="container-fluid col-md-8 card elevation-2 m-3">
+      <div class="row justify-content-center">
+        <div class="user-tag d-flex align-items-center" v-if="car.creator">
+          <img class="rounded-pill" :src="car.creator.picture" alt="" />
+          <p class="m-0 ps-3">{{ car.creator.name }}</p>
+        </div>
+        <div class="col-md-10">
+          <img class="img-fluid" :src="car.imgUrl" alt="" />
+        </div>
+        <div class="row mt-3 justify-content-center">
+          <div class="col-md-8">
             <h4>{{ car.make }} - {{ car.model }} - {{ car.year }}</h4>
-            <div class="d-flex align-items-center">
-              <p class="m-0">
+              <div class="d-flex align-items-center">
+                <p class="m-0">
                 <b>${{ car.price }}</b>
-              </p>
-              <div class="color-swatch mx-2"></div>
-            </div>
+                </p>
+              <div class="color-swatch mx-2">
+                </div>
+              </div>
             <p>{{ car.description }}</p>
             <!-- adding the v-if prevents the content from trying to load before creator is defined -->
-            <div class="user-tag d-flex align-items-center" v-if="car.creator">
-              <img class="rounded-pill" :src="car.creator.picture" alt="" />
-              <p class="m-0 ps-3">{{ car.creator.name }}</p>
-            </div>
             <!-- only render if the creatorId of the car is the person logged in -->
             <div
               v-if="car.creatorId === account.id"
-              class="car-controls d-flex justify-content-end"
-            >
+              class="mb-3 car-controls d-flex justify-content-end">
               <button
                 class="btn btn-warning"
                 data-bs-toggle="modal"
-                data-bs-target="#car-modal"
-              >
+                data-bs-target="#car-modal">
                 edit
               </button>
               <button class="btn btn-danger mx-3" @click="remove">
                 delete
               </button>
             </div>
-          </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
   <!-- by passing the prop the car details should be filled in -->
@@ -107,4 +106,5 @@ export default {
     height: 50px;
   }
 }
+
 </style>
